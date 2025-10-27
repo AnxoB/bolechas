@@ -6,13 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class GestorProducto {
-    String nombreBD;
-    private final String URL;
-    private final String USER = "root";
-    private final String PASSWORD = "root";
-    GestorProducto(String nombre){
-        this.nombreBD=nombre;
-        this.URL = "jdbc:mysql://localhost:3306/" + nombreBD;
+    Connection conn;
+    GestorProducto(Connection conn){
+        this.conn=conn;
     }
 
     public void crearTabla(){
@@ -26,8 +22,7 @@ public class GestorProducto {
                         FOREIGN KEY (id_pedido) references Pedido(id_pedido) ON UPDATE CASCADE
                     )
                 """;
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            Statement statement = conn.createStatement()){
+        try (Statement statement = conn.createStatement()){
             statement.execute(tabla);
             System.out.println("Tabla Producto creada");
         } catch (SQLException e) {
