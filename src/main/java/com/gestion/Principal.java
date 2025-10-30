@@ -24,20 +24,48 @@ public class Principal {
         MySQLConnection mySQLConnection = new MySQLConnection();
         try (Connection conn = mySQLConnection.getConnection();
             Statement statement = conn.createStatement()){
-            statement.execute("USE" + nombreBD);
+            statement.execute("USE " + nombreBD);
 
             GestorCliente gestorCliente = new GestorCliente(conn);
             GestorProducto gestorProducto = new GestorProducto(conn);
             GestorPedido gestorPedido = new GestorPedido(conn);
+
             gestorCliente.crearTabla();
             gestorPedido.crearTabla();
             gestorProducto.crearTabla();
+
+            int opcion = 0;
+            while (opcion!=5) {
+                System.out.println("1. Insertar Cliente");
+                System.out.println("2. Insertar Pedido");
+                System.out.println("3. Insertar Producto");
+                System.out.println("4. Mostrar Pedido de un Cliente");
+                System.out.println("5. Salir");
+                System.out.print("Elige una opcion: ");
+                opcion=sc.nextInt();
+                sc.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        gestorCliente.insertarCliente("12345678A", "Anxo");
+                        break;
+                    case 2:
+                        gestorPedido.insertarPedido(1, "2024-06-10", "12345678A");
+                        break;
+                    case 3:
+                        gestorProducto.insertarProducto(1, "Producto1", "Descripcion1", 100, 1);
+                        break;
+                    case 4:
+                        gestorPedido.mostrarPedido("12345678A");
+                        break;
+                    default:
+                        System.out.println("Opcion no valida");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        
-
-
+        sc.close();
     }
 }
