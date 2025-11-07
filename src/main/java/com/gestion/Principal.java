@@ -22,16 +22,25 @@ public class Principal {
             gestor.crearBaseDatos(nombreBD, false);
         }
         
+        /**
+         * Iniciamos los gestores
+         * En este caso para MariaDB
+        */
+
         //MySQLConnection mySQLConnection = new MySQLConnection();
         MariaDBConnection mariaDBConnection = new MariaDBConnection();
+
+        //Realizamos un try para realizar una sola conexion
         try (Connection conn = mariaDBConnection.getConnection();
             Statement statement = conn.createStatement()){
             statement.execute("USE " + nombreBD);
 
+            //Iniciamos los gestores con la conexion definida
             GestorCliente gestorCliente = new GestorCliente(conn);
             GestorProducto gestorProducto = new GestorProducto(conn);
             GestorPedido gestorPedido = new GestorPedido(conn);
 
+            //Uso de metodos a traves de los gestores
             gestorCliente.crearTabla();
             gestorPedido.crearTabla();
             gestorProducto.crearTabla();

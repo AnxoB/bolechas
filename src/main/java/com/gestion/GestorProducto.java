@@ -8,10 +8,16 @@ import java.sql.Statement;
 
 public class GestorProducto {
     Connection conn;
+    //Constructor con conexion
     GestorProducto(Connection conn){
         this.conn=conn;
     }
 
+    /**
+     * Creamos una tabla Producto
+     * Definimos un string con la consulta
+     * Ejecutamos la consulta con ese string
+     */
     public void crearTabla(){
         String tabla = """
                     CREATE TABLE IF NOT EXISTS Producto (
@@ -32,6 +38,16 @@ public class GestorProducto {
         }
     }
 
+    /**
+     * Insertamos un producto
+     * Recibimos como parametros los valores a insertar
+     * @param idProducto
+     * @param nombre
+     * @param descripcion
+     * @param precio
+     * @param idPedido
+     * Realizamos la insercion con un preparedStatement
+     */
     public void insertarProducto(int idProducto, String nombre, String descripcion, int precio, int idPedido){
         try {
             PreparedStatement pst = conn.prepareStatement("INSERT INTO PRODUCTO VALUES (?, ?, ?, ?, ?)");

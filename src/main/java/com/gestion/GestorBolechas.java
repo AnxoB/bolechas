@@ -12,10 +12,19 @@ import com.mysql.cj.MysqlConnection;
 
 public class GestorBolechas {
     DBConnection conexion;
+
+    //Iniciamos los gestores
+    //En este caso para MariaDB    
     public GestorBolechas() {
         //this.conexion = new MySQLConnection();
         this.conexion = new MariaDBConnection();
     }
+    /**
+     * Recibimos por parametro el nombre y una condicion para borrar
+     * Si borrar es true, borramos antes de crear
+     * @param nombre
+     * @param borrar
+     */
     public void crearBaseDatos(String nombre, boolean borrar){
         try (Connection conn = conexion.getConnection();
             Statement statement = conn.createStatement()){

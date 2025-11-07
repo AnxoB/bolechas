@@ -8,10 +8,16 @@ import java.sql.Statement;
 
 public class GestorPedido {
     Connection conn;
+    //Constructor con conexion
     GestorPedido(Connection conn){
         this.conn=conn;
     }
 
+    /**
+     * Creamos la tabla Pedido
+     * Definimos un string con la consulta
+     * Ejecutamos la consulta con ese string con un statement
+     */
     public void crearTabla(){
         String tabla = """
                     CREATE TABLE IF NOT EXISTS Pedido (
@@ -29,6 +35,14 @@ public class GestorPedido {
         }
     }
 
+    /**
+     * Insertamos un pedido
+     * Pasamos los siguientes parametros
+     * @param idPedido
+     * @param fecha
+     * @param dni_cliente
+     * Realizamos la insercion con un preparedStatement
+     */
     public void insertarPedido(int idPedido, String fecha, String dni_cliente){
         try {
             PreparedStatement pst = conn.prepareStatement("INSERT INTO Pedido VALUES (?, ?)");
@@ -42,6 +56,12 @@ public class GestorPedido {
         }
     }
 
+    /**
+     * Mostramos el pedido de un cliente
+     * Pasamos los siguientes parametros
+     * @param dni
+     * Realizamos la consulta con un preparedStatement
+     */
     public void mostrarPedido(String dni){
         try {
             PreparedStatement pst = conn.prepareStatement("SELECT pe.fecha, pr.descripcion, pr.precio from Pedido pe inner join Producto pr on pe.id_pedido=pr.id_pedido where pe.dni_cliente=?");

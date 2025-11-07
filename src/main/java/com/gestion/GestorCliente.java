@@ -11,10 +11,16 @@ import com.conexion.MySQLConnection;
 
 public class GestorCliente {
     Connection conn;
+    //Constructor con conexion
     GestorCliente(Connection conn){
         this.conn=conn;
     }
 
+    /**
+     * Creamos una tabla Cliente
+     * Definimos un string con la consulta
+     * Ejecutamos la consulta con ese string
+     */
     public void crearTabla(){
         String tabla = """
                     CREATE TABLE IF NOT EXISTS Cliente (
@@ -30,6 +36,13 @@ public class GestorCliente {
         }
     }
 
+    /**
+     * Insertamos un cliente
+     * Pasamos los siguientes parametros
+     * @param dni
+     * @param nombre
+     * Realizamos la insercion con un preparedStatement
+     */
     public void insertarCliente(String dni, String nombre){
         try {
             PreparedStatement pst = conn.prepareStatement("INSERT INTO Cliente VALUES (?, ?)");
