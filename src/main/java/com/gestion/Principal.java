@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.conexion.MariaDBConnection;
 import com.conexion.MySQLConnection;
 
 public class Principal {
@@ -14,15 +15,16 @@ public class Principal {
 
         System.out.println("Quieres borrar la base de datos si existe?(s/n)");
         String borrar = sc.nextLine();
-        String nombreBD = "bolechasAnxoB";
+        String nombreBD = "mariaBolechas";
         if (borrar != null && borrar.equalsIgnoreCase("s")) {
             gestor.crearBaseDatos(nombreBD, true);
         } else {
             gestor.crearBaseDatos(nombreBD, false);
         }
         
-        MySQLConnection mySQLConnection = new MySQLConnection();
-        try (Connection conn = mySQLConnection.getConnection();
+        //MySQLConnection mySQLConnection = new MySQLConnection();
+        MariaDBConnection mariaDBConnection = new MariaDBConnection();
+        try (Connection conn = mariaDBConnection.getConnection();
             Statement statement = conn.createStatement()){
             statement.execute("USE " + nombreBD);
 

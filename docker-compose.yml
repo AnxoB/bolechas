@@ -14,6 +14,21 @@ services:
       - ./initMysql.sql:/docker-entrypoint-initdb.d/initMysql.sql
     command: --default-authentication-plugin=mysql_native_password
 
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb_db
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: testdb
+      MARIADB_USER: usuario
+      MARIADB_PASSWORD: usuario123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./initMariaDB.sql:/docker-entrypoint-initdb.d/initMariaDB.sql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
@@ -27,3 +42,4 @@ services:
 
 volumes:
   mysql_data:
+  mariadb_data:

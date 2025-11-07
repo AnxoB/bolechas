@@ -5,6 +5,12 @@
     <groupId>com.example</groupId>
     <artifactId>ud2_at01_conectores</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <!--  Para eliminar el warning de Mysql 
         SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
@@ -21,6 +27,11 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>9.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.4.1</version>
         </dependency>
     </dependencies>
 </project>
